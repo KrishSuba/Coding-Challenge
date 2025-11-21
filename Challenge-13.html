@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>TradeFlow — Stock Trading App</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="CH-13.CSS" />
+</head>
+<body>
+  <!-- Top app bar -->
+  <header class="appbar">
+    <button class="icon-btn" aria-label="Open menu" id="menuToggle">
+      <!-- menu icon -->
+      <span class="icon icon-menu"></span>
+    </button>
+    <h1 class="brand">TradeFlow</h1>
+    <div class="appbar-actions">
+      <div class="search">
+        <label for="symbolSearch" class="sr-only">Search symbol</label>
+        <input id="symbolSearch" type="search" placeholder="Search symbol (e.g., AAPL)" />
+        <button class="btn btn-primary">Search</button>
+      </div>
+      <button class="icon-btn" aria-label="Notifications"><span class="icon icon-bell"></span></button>
+      <button class="avatar" aria-label="Account"><span>SK</span></button>
+    </div>
+  </header>
+
+  <!-- Sidebar navigation (desktop) -->
+  <aside class="sidebar" id="sidebar">
+    <nav class="nav-vertical" aria-label="Primary">
+      <a class="nav-item active" href="#dashboard"><span class="icon icon-dashboard"></span> Dashboard</a>
+      <a class="nav-item" href="#trade"><span class="icon icon-trade"></span> Trade</a>
+      <a class="nav-item" href="#positions"><span class="icon icon-positions"></span> Positions</a>
+      <a class="nav-item" href="#orders"><span class="icon icon-orders"></span> Orders</a>
+      <a class="nav-item" href="#watchlist"><span class="icon icon-watchlist"></span> Watchlist</a>
+      <a class="nav-item" href="#funds"><span class="icon icon-funds"></span> Funds</a>
+      <a class="nav-item" href="#settings"><span class="icon icon-settings"></span> Settings</a>
+    </nav>
+  </aside>
+
+  <!-- Main content area -->
+  <main class="content">
+    <!-- Dashboard: Market overview -->
+    <section id="dashboard" class="panel">
+      <header class="panel-header">
+        <h2>Market overview</h2>
+        <div class="filters">
+          <label for="range">Range</label>
+          <select id="range">
+            <option>1D</option>
+            <option selected>1W</option>
+            <option>1M</option>
+            <option>3M</option>
+            <option>1Y</option>
+          </select>
+          <label for="theme">Theme</label>
+          <select id="theme">
+            <option>Light</option>
+            <option selected>Dark</option>
+          </select>
+        </div>
+      </header>
+
+      <div class="grid grid-3">
+        <!-- Chart card -->
+        <article class="card">
+          <header class="card-header">
+            <h3>AAPL • Live price</h3>
+            <div class="price">
+              <span class="price-value">$192.34</span>
+              <span class="price-change up">+1.24 (+0.65%)</span>
+            </div>
+          </header>
+          <div class="chart" role="img" aria-label="Sample line chart">
+            <!-- Placeholder chart using CSS; replace with canvas/SVG later -->
+            <div class="sparkline">
+              <span style="--p:10"></span>
+              <span style="--p:30"></span>
+              <span style="--p:25"></span>
+              <span style="--p:40"></span>
+              <span style="--p:35"></span>
+              <span style="--p:50"></span>
+              <span style="--p:45"></span>
+            </div>
+          </div>
+          <footer class="card-footer">
+            <button class="btn btn-outline">Add to watchlist</button>
+            <button class="btn btn-primary">Trade</button>
+          </footer>
+        </article>
+
+        <!-- Watchlist -->
+        <article class="card">
+          <header class="card-header">
+            <h3>Watchlist</h3>
+            <button class="btn btn-outline">Manage</button>
+          </header>
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Symbol</th>
+                <th>Last</th>
+                <th>Change</th>
+                <th>Day range</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>AAPL</td>
+                <td>$192.34</td>
+                <td class="up">+0.65%</td>
+                <td>
+                  <div class="range-bar"><span style="--min:20%; --max:80%; --val:60%"></span></div>
+                </td>
+                <td><button class="btn btn-small">Buy</button></td>
+              </tr>
+              <tr>
+                <td>MSFT</td>
+                <td>$374.12</td>
+                <td class="down">-0.14%</td>
+                <td>
+                  <div class="range-bar"><span style="--min:10%; --max:70%; --val:45%"></span></div>
+                </td>
+                <td><button class="btn btn-small">Sell</button></td>
+              </tr>
+              <tr>
+                <td>TSLA</td>
+                <td>$229.87</td>
+                <td class="up">+1.92%</td>
+                <td>
+                  <div class="range-bar"><span style="--min:5%; --max:90%; --val:75%"></span></div>
+                </td>
+                <td><button class="btn btn-small">Buy</button></td>
+              </tr>
+            </tbody>
+          </table>
+        </article>
+
+        <!-- Positions -->
+        <article class="card">
+          <header class="card-header">
+            <h3>Positions</h3>
+            <div class="pill-group" role="tablist" aria-label="Position view">
+              <button class="pill active">Open</button>
+              <button class="pill">Closed</button>
+            </div>
+          </header>
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Symbol</th>
+                <th>Qty</th>
+                <th>Avg price</th>
+                <th>P/L</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>AAPL</td>
+                <td>25</td>
+                <td>$185.10</td>
+                <td class="up">+$180.95</td>
+                <td><button class="btn btn-small btn-outline">Close</button></td>
+              </tr>
+              <tr>
+                <td>NVDA</td>
+                <td>5</td>
+                <td>$480.00</td>
+                <td class="down">-$45.50</td>
+                <td><button class="btn btn-small btn-outline">Close</button></td>
+              </tr>
+            </tbody>
+          </table>
+        </article>
+      </div>
+    </section>
+
+    <!-- Trade ticket -->
+    <section id="trade" class="panel">
+      <header class="panel-header">
+        <h2>Place order</h2>
+        <p class="subtext">Market, limit, and stop orders with risk checks.</p>
+      </header>
+
+      <div class="trade-layout">
+        <form class="ticket" aria-label="Order ticket">
+          <div class="field-group">
+            <label for="symbol">Symbol</label>
+            <input id="symbol" type="text" placeholder="e.g., AAPL" inputmode="latin" />
+          </div>
+
+          <div class="field-row">
+            <div class="field-group">
+              <label for="side">Side</label>
+              <select id="side">
+                <option value="buy">Buy</option>
+                <option value="sell">Sell</option>
+              </select>
+            </div>
+            <div class="field-group">
+              <label for="type">Order type</label>
+              <select id="type">
+                <option value="market">Market</option>
+                <option value="limit">Limit</option>
+                <option value="stop">Stop</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="field-row">
+            <div class="field-group">
+              <label for="qty">Quantity</label>
+              <input id="qty" type="number" min="1" step="1" placeholder="100" />
+            </div>
+            <div class="field-group">
+              <label for="price">Price</label>
+              <input id="price" type="number" min="0" step="0.01" placeholder="192.50" />
+            </div>
+          </div>
+
+          <div class="field-row">
+            <div class="field-group">
+              <label for="timeinforce">Time in force</label>
+              <select id="timeinforce">
+                <option>DAY</option>
+                <option>GTC</option>
+                <option>IOC</option>
+              </select>
+            </div>
+            <div class="field-group">
+              <label for="route">Routing</label>
+              <select id="route">
+                <option>Auto</option>
+                <option>Direct</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="risk">
+            <div class="risk-row">
+              <span>Estimated cost</span>
+              <strong>$19,250.00</strong>
+            </div>
+            <div class="risk-row">
+              <span>Buying power</span>
+              <strong>$28,000.00</strong>
+            </div>
+            <div class="risk-row warn">
+              <span>Risk limit check</span>
+              <strong>Within limits</strong>
+            </div>
+          </div>
+
+          <div class="actions">
+            <button class="btn btn-outline">Preview</button>
+            <button class="btn btn-primary">Submit order</button>
+          </div>
+        </form>
+
+        <aside class="ticket-side">
+          <div class="card compact">
+            <header class="card-header">
+              <h3>Order activity</h3>
+              <button class="btn btn-small btn-outline">Refresh</button>
+            </header>
+            <table class="table compact">
+              <thead>
+                <tr>
+                  <th>Time</th>
+                  <th>Symbol</th>
+                  <th>Side</th>
+                  <th>Qty</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>10:18</td>
+                  <td>AAPL</td>
+                  <td>Buy</td>
+                  <td>25</td>
+                  <td><span class="status success">Filled</span></td>
+                </tr>
+                <tr>
+                  <td>09:52</td>
+                  <td>MSFT</td>
+                  <td>Sell</td>
+                  <td>10</td>
+                  <td><span class="status pending">Pending</span></td>
+                </tr>
+                <tr>
+                  <td>09:30</td>
+                  <td>TSLA</td>
+                  <td>Buy</td>
+                  <td>5</td>
+                  <td><span class="status rejected">Rejected</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- Orders -->
+    <section id="orders" class="panel">
+      <header class="panel-header">
+        <h2>Orders</h2>
+        <div class="filters">
+          <label for="statusFilter">Status</label>
+          <select id="statusFilter">
+            <option>All</option>
+            <option>Pending</option>
+            <option>Filled</option>
+            <option>Rejected</option>
+          </select>
+          <label for="dateFilter">Date</label>
+          <input id="dateFilter" type="date" />
+        </div>
+      </header>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Order ID</th>
+            <th>Symbol</th>
+            <th>Side</th>
+            <th>Type</th>
+            <th>Qty</th>
+            <th>Limit/Stop</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>#78421</td>
+            <td>AAPL</td>
+            <td>Buy</td>
+            <td>Limit</td>
+            <td>25</td>
+            <td>$192.50</td>
+            <td><span class="status pending">Pending</span></td>
+            <td>
+              <button class="btn btn-small btn-outline">Modify</button>
+              <button class="btn btn-small btn-outline">Cancel</button>
+            </td>
+          </tr>
+          <tr>
+            <td>#78420</td>
+            <td>MSFT</td>
+            <td>Sell</td>
+            <td>Market</td>
+            <td>10</td>
+            <td>—</td>
+            <td><span class="status success">Filled</span></td>
+            <td>
+              <button class="btn btn-small btn-outline">Details</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+  </main>
+
+  <!-- Bottom navigation (mobile) -->
+  <nav class="nav-bottom" aria-label="Mobile">
+    <a class="nav-item active" href="#dashboard"><span class="icon icon-dashboard"></span> Overview</a>
+    <a class="nav-item" href="#trade"><span class="icon icon-trade"></span> Trade</a>
+    <a class="nav-item" href="#positions"><span class="icon icon-positions"></span> Positions</a>
+    <a class="nav-item" href="#orders"><span class="icon icon-orders"></span> Orders</a>
+  </nav>
+
+  <!-- Non-blocking toast notifications -->
+  <div class="toast" role="status" aria-live="polite" aria-atomic="true">
+    <span class="toast-msg">Order submitted successfully</span>
+    <button class="icon-btn" aria-label="Dismiss"><span class="icon icon-close"></span></button>
+  </div>
+
+  <!-- Basic interactivity (optional) -->
+  <script>
+    const menuToggle = document.getElementById('menuToggle');
+    const sidebar = document.getElementById('sidebar');
+    menuToggle?.addEventListener('click', () => {
+      sidebar.classList.toggle('open');
+    });
+  </script>
+</body>
+</html>
